@@ -11,31 +11,31 @@
  * @link  http://www.example.com/wp-login.php?redirect_to=http://www.example.com/русский-title/
  */
 
-if ( function_exists( 'wp_sanitize_redirect' ) ) {
-	return;
-}
+if ( ! function_exists( 'wp_sanitize_redirect' ) ) {
 
-/**
- * Sanitizes a URL for use in a redirect.
- * @since 2.3.0
- *
- * @param string $location
- *
- * @return string redirect-sanitized URL
- */
-function wp_sanitize_redirect( $location ) {
 	/**
-	 * This line exists in the original function (wp-includes/pluggable.php)
-	 * @see wp_sanitize_redirect()
+	 * Sanitizes a URL for use in a redirect.
+	 * @since 2.3.0
+	 *
+	 * @param string $location
+	 *
+	 * @return string redirect-sanitized URL
 	 */
-	//	$location = preg_replace('|[^a-z0-9-~+_.?#=&;,/:%!*]|i', '', $location);
-	$location = wp_kses_no_null( $location );
+	function wp_sanitize_redirect( $location ) {
+		/**
+		 * This line exists in the original function (wp-includes/pluggable.php)
+		 * @see wp_sanitize_redirect()
+		 */
+		//	$location = preg_replace('|[^a-z0-9-~+_.?#=&;,/:%!*]|i', '', $location);
+		$location = wp_kses_no_null( $location );
 
-	// remove %0d and %0a from location
-	$strip    = array( '%0d', '%0a', '%0D', '%0A' );
-	$location = _deep_replace( $strip, $location );
+		// remove %0d and %0a from location
+		$strip    = array( '%0d', '%0a', '%0D', '%0A' );
+		$location = _deep_replace( $strip, $location );
 
-	return $location;
+		return $location;
+	}
+
 }
 
 # --- EOF
